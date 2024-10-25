@@ -5,6 +5,6 @@ RUN npm ci
 COPY . .
 RUN npm run build
 
-FROM nginx:18-alpine3.14
+FROM nginx:alpine3.14
 COPY --from=builder /app/dist /usr/share/nginx/html
 EXPOSE 80
