@@ -8,6 +8,5 @@ RUN npm install -g @angular/cli
 
 RUN npm install
 
-ENV PORT 4200
 EXPOSE 4200
 CMD ["nginx", "-g", "daemon off;"]
