@@ -1,13 +1,14 @@
 FROM node:alpine
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
-COPY . /usr/src/app
+COPY package*.json ./
+RUN npm ci
 
-RUN npm install -g @angular/cli
+COPY . .
+RUN npm run build
 
-RUN npm install
-
-EXPOSE 4200
-
-CMD ["npm", "start"]
+FROM nginx:alpine
+COPY --from=0 /app/dist /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
