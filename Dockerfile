@@ -1,12 +1,24 @@
-FROM node:alpine
+FROM node:14
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
-COPY . /usr/src/app
+COPY package*.json ./
+RUN npm ci
 
-RUN npm install -g @angular/cli
+COPY . .
+RUN npm run build
 
-RUN npm install
+FROM node:14
 
-EXPOSE 4200
-CMD ["nginx", "-g", "daemon off;"]
+WORKDIR /app/server
+
+COPY server/package*.json ./
+RUN npm ci
+
+COPY server/ .
+
+ENV NODE_ENV production
+ENV PORT 8000
+EXPOSE 8000
+
+CMD ["npm", "start"]
