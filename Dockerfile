@@ -10,4 +10,4 @@ RUN npm install
 
 ENV PORT 4200
 EXPOSE 4200
-CMD ["ng", "serve"]
+CMD ["nginx", "-g", "daemon off;"]
