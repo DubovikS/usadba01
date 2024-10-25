@@ -1,4 +1,4 @@
-FROM node:18 as builder
+FROM node:lts as builder
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci
